@@ -83,17 +83,6 @@ h1{font-size:clamp(2.4rem,6vw,3.6rem); line-height:1.06; letter-spacing:-0.035em
 .stat span{font-size:12.5px; color:var(--text-faint)}
 @media(max-width:640px){.stat{border-right:none; border-bottom:1px solid var(--border)} .stat:last-child{border-bottom:none}}
 
-.career{
-  display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:26px;
-  font-size:14px; color:var(--text-dim);
-}
-.career span{
-  font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em;
-  text-transform:uppercase; color:var(--text-faint); margin-right:4px;
-}
-.career b{color:var(--text); font-weight:600}
-.career i{color:var(--border-strong); font-style:normal}
-
 /* ---------- sections ---------- */
 section{padding:72px 0; border-bottom:1px solid var(--border)}
 .sechead{margin-bottom:36px}
@@ -214,6 +203,12 @@ h2{font-size:clamp(1.5rem,3.4vw,2rem); letter-spacing:-0.025em; margin-top:6px; 
   letter-spacing:.04em; color:var(--text-faint); line-height:1.7;
 }
 
+.seealso{
+  display:inline-block; margin-top:8px; color:var(--accent); text-decoration:none;
+  font-size:13.5px; font-weight:600; border-bottom:1px solid transparent;
+}
+.seealso:hover{border-bottom-color:var(--accent)}
+
 /* ---------- projects ---------- */
 .projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px}
 .proj{background:var(--bg-raised); border:1px solid var(--border); border-radius:10px; padding:24px; transition:border-color .15s}
@@ -258,7 +253,7 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
 
 <header id="top">
   <div class="wrap">
-    <div class="eyebrow">Singapore · Asia Pacific · Open to conversations</div>
+    <div class="eyebrow">Singapore Permanent Resident · Asia Pacific coverage</div>
     <h1>Rommel Sunga</h1>
     <p class="tagline">
       <strong>Senior Specialist Solutions Architect at AWS</strong>, covering End User Messaging and SES
@@ -281,10 +276,6 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
       <div class="stat"><b>400%</b><span>Peak quota attainment, Twilio</span></div>
     </div>
 
-    <div class="career">
-      <span>Previously</span>
-      <b>AWS</b><i>·</i><b>8x8</b><i>·</i><b>GuardRails</b><i>·</i><b>Twilio</b><i>·</i><b>Sendbird</b><i>·</i><b>Rakuten</b><i>·</i><b>Big Fish Games</b>
-    </div>
   </div>
 </header>
 
@@ -317,32 +308,27 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
             providers. Architecture review through production cutover: international number registration and
             portability, dedicated IP warm-up, per-tenant reputation isolation, suppression and deliverability
             strategy, and block-list management at hundreds of millions of messages a month.</li>
-          <li><b>Authored <a href="https://aws.amazon.com/blogs/messaging-and-targeting/build-an-autonomous-ecommerce-assistant-with-aws-end-user-messaging-amazon-bedrock-agentcore-and-openclaw/" target="_blank" rel="noopener">OpenClaw</a>, an open-source autonomous ecommerce agent.</b>
-            End User Messaging over WhatsApp and Telegram, paired with Amazon Bedrock AgentCore and SES. Buyers
-            shop through WhatsApp while the operator runs restocks, refunds, and orders as natural-language
-            commands. Shipped as a blog post and a live repo, and adopted as the regional agentic AI reference.</li>
+          <li><b>Authored the AWS blog post and open-source reference implementation</b> for an autonomous
+            ecommerce agent built on <a href="https://aws.amazon.com/blogs/messaging-and-targeting/build-an-autonomous-ecommerce-assistant-with-aws-end-user-messaging-amazon-bedrock-agentcore-and-openclaw/" target="_blank" rel="noopener">OpenClaw, Amazon Bedrock AgentCore, and End User Messaging</a>.
+            Buyers shop over WhatsApp and the web while the operator runs restocks, refunds, and orders as
+            natural-language commands from Telegram. The repo is live for field and customer use, and the
+            architecture is now the regional agentic AI reference.</li>
           <li><b>Built further demos that became sales assets.</b> Reference implementations pairing End User Messaging
             with Bedrock agents and knowledge bases for ecommerce and financial services, adopted by teams
             outside my own region and folded into the regional sales play.</li>
-          <li><b>Resolved 85+ technical specification requests</b> and L200 to L400 technical inquiries as the
-            regional escalation point for the two services.</li>
-          <li><b>Claude Code on Bedrock, daily.</b> I run it as a working tool rather than a novelty, and I have
-            built a library of skills and repeatable workflows for my team so the same automation is available
-            to everyone rather than living in one person's terminal.</li>
           <li><b>Built the CPaaS news digest my GTM and SA team runs on.</b> An automated intelligence feed that
             tracks the competitive communications landscape and delivers it to the field, alongside a
             competitive positioning portal and an RFP knowledge base. Sellers get one current reference instead
             of a dozen stale decks.</li>
-          <li><b>Technical reviewer and mentor.</b> I review colleagues' blog posts before publication, run
-            enablement sessions and lightning talks for the regional SA community, and mentor SAs in
-            Greater China.</li>
+          <li><b>Technical reviewer and mentor.</b> I review colleagues' blog posts before publication, and run
+            enablement sessions and lightning talks for the regional SA community.</li>
         </ul>
         <div class="jcerts">AWS Certified Solutions Architect Associate · AI Practitioner · Cloud Practitioner · multiple internal AWSome Awards</div>
       </div>
       <div class="job">
         <div class="jrole">Senior Sales Engineer · <span class="jco">8x8</span></div>
         <div class="jdate">SINGAPORE · 2023 – 2025</div>
-        <div class="jdesc">Hit 100% of regional quota in Q4 2024. Built the CPaaS demo platform above, recorded 31 product demonstrations for the developer channel, and wrote the accompanying product documentation as a technical writer on the side. Received the 8x8 Employee Appreciation Award.</div>
+        <div class="jdesc">Hit 100% of regional quota in Q4 2024. Built the CPaaS demo platform, created 31 product demonstration videos that have reached roughly 11,000 views on the 8x8 developer channel, and wrote the accompanying product documentation as a technical writer. Received the 8x8 Employee Appreciation Award. <a href="#video" class="seealso">See the full demo listing below &darr;</a></div>
       </div>
       <div class="job">
         <div class="jrole">Senior Sales Engineer · <span class="jco">GuardRails</span></div>
@@ -705,7 +691,8 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
       <div class="secnum">06</div>
       <h2>Get in touch</h2>
       <p class="secsub">
-        Based in Singapore, covering Asia Pacific. I am interested in applied AI and forward-deployed
+        Based in Singapore and a <strong style="color:var(--text)">Singapore Permanent Resident</strong>, so
+        there is no work pass or sponsorship to arrange. I cover Asia Pacific and am interested in applied AI and forward-deployed
         architecture roles, the kind where the job is to sit between a customer's engineering team and a
         model and make the two work together. Happy to talk even if the timing is wrong.
       </p>
