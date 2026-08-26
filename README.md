@@ -13,4 +13,6 @@ It was replaced with the portfolio on 2026-08-26. The old site is still in git h
 
     git show e930968:index.html
 
-`files/whitepaper.pdf` was kept in place so any link already shared against it keeps working.
+`files/whitepaper.pdf` (an 8x8 Communication APIs security overview) was removed on 2026-08-26. It is a
+former employer's document and did not belong on a personal site. It remains in git history at `e930968`
+if it is ever needed.
