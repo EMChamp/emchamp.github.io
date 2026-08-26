@@ -1,817 +1,556 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  <title>EMChamp Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rommel Sunga — Solutions Architect</title>
+<meta name="description" content="Rommel Sunga is a Solutions Architect at AWS in Singapore. Published author on the AWS Messaging Blog, technical writer, and builder of applied AI systems.">
+<meta property="og:title" content="Rommel Sunga — Solutions Architect">
+<meta property="og:description" content="Solutions Architect at AWS Singapore. AWS Messaging Blog author, developer educator, applied AI builder.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="EMChamp Blog">
-<meta property="og:url" content="http://emchamp.github.io/index.html">
-<meta property="og:site_name" content="EMChamp Blog">
-<meta property="og:description">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EMChamp Blog">
-<meta name="twitter:description">
-  
-    <link rel="alternate" href="/atom.xml" title="EMChamp Blog" type="application/atom+xml">
-  
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117; --bg-raised:#151b23; --bg-hover:#1c242e;
+  --border:#262f3d; --border-strong:#39445466;
+  --text:#e6edf3; --text-dim:#9aa7b4; --text-faint:#6e7d8c;
+  --accent:#ff9f43; --accent-soft:#ff9f4318;
+  --blue:#6ea8fe; --green:#7ee2b8;
+  --max:1080px;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#fbfaf8; --bg-raised:#ffffff; --bg-hover:#f4f2ee;
+    --border:#e3e0da; --border-strong:#d3cec5;
+    --text:#1a1a19; --text-dim:#5d5b56; --text-faint:#8a8781;
+    --accent:#c2610a; --accent-soft:#c2610a12;
+    --blue:#1f5fbf; --green:#1a7a52;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:16px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:var(--max); margin:0 auto; padding:0 28px}
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+/* ---------- nav ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px; gap:24px}
+.brand{font-weight:600; letter-spacing:-0.01em; text-decoration:none; white-space:nowrap}
+.brand span{color:var(--text-faint); font-weight:400}
+.navlinks{display:flex; gap:22px; font-size:14px; overflow-x:auto; scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:var(--text-dim); text-decoration:none; white-space:nowrap; transition:color .15s}
+.navlinks a:hover{color:var(--text)}
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+/* ---------- hero ---------- */
+header{padding:84px 0 64px; border-bottom:1px solid var(--border)}
+.eyebrow{
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:12px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
+  background:var(--accent-soft); border:1px solid var(--accent-soft);
+  padding:5px 11px; border-radius:100px; margin-bottom:22px;
+}
+h1{font-size:clamp(2.4rem,6vw,3.6rem); line-height:1.06; letter-spacing:-0.035em; font-weight:700}
+.tagline{font-size:clamp(1.05rem,2.2vw,1.28rem); color:var(--text-dim); margin-top:20px; max-width:60ch}
+.tagline strong{color:var(--text); font-weight:600}
+.meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:30px}
+.chip{
+  font-size:13px; color:var(--text-dim); background:var(--bg-raised);
+  border:1px solid var(--border); border-radius:6px; padding:6px 12px;
+  text-decoration:none; transition:all .15s; display:inline-flex; align-items:center; gap:7px;
+}
+.chip:hover{border-color:var(--border-strong); color:var(--text); background:var(--bg-hover)}
+.chip.primary{border-color:var(--accent); color:var(--accent)}
 
-  <link rel="stylesheet" href="/css/styles.css">
-  
+/* ---------- stats ---------- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0; margin-top:52px; border:1px solid var(--border); border-radius:10px; overflow:hidden}
+.stat{padding:20px 22px; border-right:1px solid var(--border); background:var(--bg-raised)}
+.stat:last-child{border-right:none}
+.stat b{display:block; font-size:1.9rem; letter-spacing:-0.03em; line-height:1.2; font-weight:700}
+.stat span{font-size:12.5px; color:var(--text-faint)}
+@media(max-width:640px){.stat{border-right:none; border-bottom:1px solid var(--border)} .stat:last-child{border-bottom:none}}
 
+/* ---------- sections ---------- */
+section{padding:72px 0; border-bottom:1px solid var(--border)}
+.sechead{margin-bottom:36px}
+.secnum{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); letter-spacing:.1em}
+h2{font-size:clamp(1.5rem,3.4vw,2rem); letter-spacing:-0.025em; margin-top:6px; font-weight:700}
+.secsub{color:var(--text-dim); margin-top:10px; max-width:64ch; font-size:15.5px}
+
+/* ---------- posts ---------- */
+.posts{display:flex; flex-direction:column; gap:2px}
+.post{
+  display:block; text-decoration:none; padding:22px 24px;
+  background:var(--bg-raised); border:1px solid var(--border);
+  transition:all .15s; position:relative;
+}
+.post:first-child{border-radius:10px 10px 0 0}
+.post:last-child{border-radius:0 0 10px 10px}
+.post:hover{background:var(--bg-hover); border-color:var(--border-strong)}
+.post:hover .ptitle{color:var(--accent)}
+.pmeta{display:flex; flex-wrap:wrap; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text-faint); margin-bottom:9px}
+.badge{border:1px solid var(--border-strong); border-radius:4px; padding:2px 7px; color:var(--text-dim)}
+.badge.lead{border-color:var(--green); color:var(--green)}
+.ptitle{font-size:17px; font-weight:600; letter-spacing:-0.015em; line-height:1.35; transition:color .15s}
+.pdesc{color:var(--text-dim); font-size:14.5px; margin-top:9px; line-height:1.6}
+.pauth{font-size:12.5px; color:var(--text-faint); margin-top:11px}
+
+/* ---------- video ---------- */
+.video-grid{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:36px; align-items:start}
+@media(max-width:820px){.video-grid{grid-template-columns:1fr}}
+.player{
+  position:relative; width:100%; aspect-ratio:16/9; border-radius:10px; overflow:hidden;
+  border:1px solid var(--border); background:#000; cursor:pointer; display:block;
+}
+.player img{width:100%; height:100%; object-fit:cover; display:block; opacity:.82; transition:opacity .2s}
+.player:hover img{opacity:1}
+.player iframe{width:100%; height:100%; border:0; display:block}
+.playbtn{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;
+}
+.playbtn i{
+  width:66px; height:66px; border-radius:50%; background:#ff0033e6;
+  display:flex; align-items:center; justify-content:center;
+}
+.playbtn i::after{content:""; border-left:20px solid #fff; border-top:12px solid transparent; border-bottom:12px solid transparent; margin-left:5px}
+.vtitle{font-size:19px; font-weight:600; letter-spacing:-0.02em; line-height:1.3}
+.vchan{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text-faint); margin-top:8px}
+.vbody{color:var(--text-dim); font-size:15px; margin-top:16px}
+.vbody p + p{margin-top:12px}
+.stack{display:flex; flex-wrap:wrap; gap:7px; margin-top:18px}
+.tag{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); border:1px solid var(--border); border-radius:4px; padding:3px 8px; background:var(--bg-raised)}
+
+/* ---------- experience ---------- */
+.exp{border-left:2px solid var(--border); padding-left:26px; margin-left:6px}
+.job{position:relative; padding-bottom:30px}
+.job:last-child{padding-bottom:0}
+.job::before{
+  content:""; position:absolute; left:-33px; top:7px; width:9px; height:9px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--border-strong);
+}
+.job.now::before{background:var(--accent); border-color:var(--accent)}
+.jrole{font-weight:600; font-size:16.5px; letter-spacing:-0.01em}
+.jco{color:var(--accent); font-weight:600}
+.jdate{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text-faint); margin-top:4px}
+.jdesc{color:var(--text-dim); font-size:14.5px; margin-top:9px; max-width:70ch}
+
+/* ---------- featured project ---------- */
+.featured{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:0;
+  border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  background:var(--bg-raised); margin-bottom:22px;
+}
+@media(max-width:820px){.featured{grid-template-columns:1fr}}
+.featured-body{padding:30px}
+.featured-visual{
+  background:linear-gradient(150deg, var(--accent-soft), transparent 60%), var(--bg-hover);
+  border-left:1px solid var(--border); padding:30px; display:flex; flex-direction:column; justify-content:center; gap:12px;
+}
+@media(max-width:820px){.featured-visual{border-left:none; border-top:1px solid var(--border)}}
+.flabel{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+.fname{font-size:1.55rem; letter-spacing:-0.03em; font-weight:700; margin-top:8px; line-height:1.15}
+.fname a{text-decoration:none}
+.fname a:hover{color:var(--accent)}
+.ftag{color:var(--text-dim); font-size:15px; margin-top:12px}
+.frow{display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--text-dim)}
+.frow b{color:var(--text); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; min-width:78px; padding-top:3px; color:var(--text-faint)}
+
+/* ---------- projects ---------- */
+.projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px}
+.proj{background:var(--bg-raised); border:1px solid var(--border); border-radius:10px; padding:24px; transition:border-color .15s}
+.proj:hover{border-color:var(--border-strong)}
+.prname{font-weight:600; font-size:16.5px; letter-spacing:-0.015em}
+.prlede{color:var(--text-dim); font-size:14.5px; margin-top:10px}
+.prlearn{
+  font-size:14px; color:var(--text-dim); margin-top:14px; padding-top:14px;
+  border-top:1px solid var(--border);
+}
+.prlearn b{color:var(--text); font-weight:600; display:block; font-size:11.5px; font-family:'JetBrains Mono',monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--text-faint); margin-bottom:6px}
+
+/* ---------- contact ---------- */
+#contact{border-bottom:none}
+.ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
+.btn{
+  text-decoration:none; font-size:15px; font-weight:500; padding:11px 20px;
+  border-radius:8px; border:1px solid var(--border-strong); color:var(--text);
+  background:var(--bg-raised); transition:all .15s;
+}
+.btn:hover{background:var(--bg-hover)}
+.btn.solid{background:var(--accent); border-color:var(--accent); color:#12100c}
+.btn.solid:hover{opacity:.88; background:var(--accent)}
+footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+</style>
 </head>
-
 <body>
-  <nav class="navbar navbar-inverse">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Rommel Sunga <span>/ Solutions Architect</span></a>
+    <div class="navlinks">
+      <a href="#writing">AWS Blog</a>
+      <a href="#video">Demo Platform</a>
+      <a href="#tutorials">Tutorials</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Applied AI</a>
+      <a href="#contact">Contact</a>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="main-menu-navbar">
-      <ul class="nav navbar-nav">
-        
-          <li><a class="active"
-                 href="/index.html">Home</a></li>
-        
-          <li><a class=""
-                 href="/archives/">Archives</a></li>
-        
-      </ul>
-
-      <!--
-      <ul class="nav navbar-nav navbar-right">
-        
-          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
-        
-      </ul>
-      -->
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  </div>
 </nav>
 
-  <div class="container">
-    <div class="blog-header">
-  <h1 class="blog-title">EMChamp Blog</h1>
-  
-</div>
-
-    <div class="row">
-        <div class="col-sm-8 blog-main">
-          
-  
-    <article id="post-Coding-Problem-Perfectly-nested-String" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/14/Coding-Problem-Perfectly-nested-String/">Coding Problem | Perfectly nested String</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/14/Coding-Problem-Perfectly-nested-String/" class="article-date"><time datetime="2016-04-14T17:07:23.000Z" itemprop="datePublished">2016-04-14</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I remember this type of lexical analysis problem being in my compilers class. That said I have never used a stack in real coding but I can see various places where O(1) read/write to latest element can be useful. This problem from codility basically asks you to check if a String is properly nested.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// you can also use imports, for example:</span></span><br><span class="line"><span class="comment">// import java.util.*;</span></span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"><span class="comment">// you can write to stdout for debugging purposes, e.g.</span></span><br><span class="line"><span class="comment">// System.out.println("this is a debug message");</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String S)</span> </span>&#123;</span><br><span class="line">       Stack&lt;Character&gt; charStack = <span class="keyword">new</span> Stack&lt;Character&gt;();</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; S.length(); i++)  &#123;</span><br><span class="line">           <span class="keyword">char</span> c = S.charAt(i);</span><br><span class="line">           <span class="keyword">if</span>(c==<span class="string">'&#123;'</span>)</span><br><span class="line">                    charStack.push(<span class="string">'&#123;'</span>);</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">'['</span>)</span><br><span class="line">                    charStack.push(<span class="string">'['</span>);</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">'('</span>)</span><br><span class="line">                    charStack.push(<span class="string">'('</span>);</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">'&#125;'</span>)&#123;</span><br><span class="line">               <span class="keyword">if</span>(charStack.peek()==<span class="string">'&#123;'</span>)</span><br><span class="line">                    charStack.pop();</span><br><span class="line">               <span class="keyword">else</span>    </span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;        </span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">']'</span>) &#123;</span><br><span class="line">               <span class="keyword">if</span>(charStack.peek()==<span class="string">'['</span>)</span><br><span class="line">                    charStack.pop();</span><br><span class="line">               <span class="keyword">else</span>    </span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">')'</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(charStack.peek()==<span class="string">'('</span>)</span><br><span class="line">                    charStack.pop();</span><br><span class="line">                <span class="keyword">else</span>    </span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">else</span> &#123;</span><br><span class="line">            System.err.println(<span class="string">"ERROR"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/14/Coding-Problem-Perfectly-nested-String/" data-id="cin0k1jju000hpjtcktj5kx45" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/14/Coding-Problem-Perfectly-nested-String/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problems-Calculate-if-array-holds-a-permutation" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/14/Coding-Problems-Calculate-if-array-holds-a-permutation/">Coding Problems | Calculate if array holds a permutation</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/14/Coding-Problems-Calculate-if-array-holds-a-permutation/" class="article-date"><time datetime="2016-04-14T00:15:15.000Z" itemprop="datePublished">2016-04-14</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This problem can also be called find the missing number in the sequence. What is key to remember is the trick which is for any given sequence 1 to N, its value is given by  (N(N+1))/2 . By that you can do all sorts of tricks because you know what the numbers should add up to. In this case if the numbers in the array do not match that formula then you know it is not a permutation.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span> expectedTotal = N*(N+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> actualTotal = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : A) &#123;</span><br><span class="line">            actualTotal+=i;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(actualTotal==expectedTotal)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/14/Coding-Problems-Calculate-if-array-holds-a-permutation/" data-id="cin0k1jjx000jpjtcxir1aa7m" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/14/Coding-Problems-Calculate-if-array-holds-a-permutation/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problem-9-Codility-calculate-binary-gap" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/13/Coding-Problem-9-Codility-calculate-binary-gap/">Coding Problem 9 | Codility calculate binary gap</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/13/Coding-Problem-9-Codility-calculate-binary-gap/" class="article-date"><time datetime="2016-04-13T08:15:09.000Z" itemprop="datePublished">2016-04-13</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/13/Coding-Problem-9-Codility-calculate-binary-gap/" data-id="cin0k1jji000bpjtc0lg3fgvh" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/13/Coding-Problem-9-Codility-calculate-binary-gap/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problem-8-Check-if-binary-tree-is-balanced" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/13/Coding-Problem-8-Check-if-binary-tree-is-balanced/">Coding Problem 8 | Check if binary tree is balanced</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/13/Coding-Problem-8-Check-if-binary-tree-is-balanced/" class="article-date"><time datetime="2016-04-13T07:03:40.000Z" itemprop="datePublished">2016-04-13</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I was not sure how to approach this one either until I took a look at the solutions discussion at leetcode and saw that people were calculating the depth. I actually had never seen recursion used in this way but it made sense since we can leverage what we already had by counting the depth of subtrees to determine if the trees were balanced. This solution seems fairly inefficient since for every node we have to calculate the depth of the subtree, there might be better ones out there on the forum.</p>
-<p>1) If root is empty, tree is defintely balanced.</p>
-<p>2) Calculate depth of current node left subtree and right subtree using</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(Math.abs(depth(root.left) - depth(root.right)) &gt; <span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>once you get this part it is downhill. If the tree is imbalanced return false. Otherwise recursively continue down the nodes left and right subtree with this </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(isBalanced(root.left) &amp;&amp; isBalanced(root.right))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBalanced</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(Math.abs(depth(root.left) - depth(root.right)) &gt; <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> (isBalanced(root.left) &amp;&amp; isBalanced(root.right));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">depth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span>(root.left != <span class="keyword">null</span> || root.right != <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> Math.max(depth(root.left),depth(root.right))+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/13/Coding-Problem-8-Check-if-binary-tree-is-balanced/" data-id="cin0k1jjq000dpjtcvjwnxigi" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/13/Coding-Problem-8-Check-if-binary-tree-is-balanced/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problem-7-Maximum-Depth-of-Binary-Tree" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/13/Coding-Problem-7-Maximum-Depth-of-Binary-Tree/">Coding Problem 7 | Maximum Depth of Binary Tree</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/13/Coding-Problem-7-Maximum-Depth-of-Binary-Tree/" class="article-date"><time datetime="2016-04-13T06:32:40.000Z" itemprop="datePublished">2016-04-13</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>One particular problem from leetcode asks you to find the maximum depth of a binary tree <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="external">https://leetcode.com/problems/maximum-depth-of-binary-tree/</a> . Like linked list, I usually trace edge cases first when going through Binary Search Tree problems. Here are the edge cases I considered:</p>
-<p>1) Case where BST is empty</p>
-<p>This is simple just return 0 since there is no depth</p>
-<p>2) Case where BST has one node or node is last element</p>
-<p>If both node.left and node.right are empty that means this is the last node so the depth is (however many nodes it took to get here)+1.</p>
-<p>3) Case where node has one or more children</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(root.left != <span class="keyword">null</span> || root.right != <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> Math.max(maxDepth(root.left),maxDepth(root.right))+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/13/Coding-Problem-7-Maximum-Depth-of-Binary-Tree/" data-id="cin0k1jj50006pjtclhtaf7y9" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/13/Coding-Problem-7-Maximum-Depth-of-Binary-Tree/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problem-6-Removed-Linked-List-Elements" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/Coding-Problem-6-Removed-Linked-List-Elements/">Coding Problem 6 | Removed Linked List Elements</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/12/Coding-Problem-6-Removed-Linked-List-Elements/" class="article-date"><time datetime="2016-04-12T20:04:23.000Z" itemprop="datePublished">2016-04-12</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I struggled with Linked List problems before. I suppose the difficult for me with Linked List is that it is hard to conceptualize the edge cases. They really force you to slow down and check your assumptions about how your program is going to run. One thing I have done with Linked List is actually draw out the Linked List and follow program execution. Here is a problem from leetcode.com which asks you to write a function to remove all nodes with given value from a linked list given the head. The solution seems straight forward but there are edge cases to consider.</p>
-<p>Edge case 1 you have a linked list that is null.<br> 
-[] 
-<br>In this case you can simply return the head you were given since there are no elements of the list to remove.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> (head==<span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> head;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>Edge case 2 you have one element and it is the value</p>
- 
-[1] 
-
-<p>In this case you can point head to the next element to delete the element, even if the next element is null. What if you had multiple elements that were the value we are searching for?</p>
- 
-[1]-[1]-[1]
-
-<p>If this occurs then one solution is to turn the check into a loop until you get to a element that is either null or is not the value you are looking for.</p>
- 
-[1]-[1]-[1]-[2]
-
-<p>becomes</p>
- 
-[2]
-
-<p>and if the element was null we we get an empty list/null head. We can use the code below to take care of this.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">while</span>(head != <span class="keyword">null</span> &amp;&amp; head.val == val) &#123;</span><br><span class="line">            head=head.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>With those two edge cases taken care of we can now safely assume that the head value is not the value we are looking for and is not null. If it is the last element of the list then we can simply return the head. From here we can apply the standard pre/curr pointer idea to remove the matching values from the list. Psuedocode is as follows:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">pre = head;</span><br><span class="line">curr = head.next;</span><br><span class="line"></span><br><span class="line">while curr != null:</span><br><span class="line">	if curr is value we are looking for</span><br><span class="line">		point pre.next to curr.next to skip curr</span><br><span class="line">		point curr to curr.next to check the next value</span><br><span class="line">	else curr not value we are looking for</span><br><span class="line">		advance pre to pre.next and curr to curr.next</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">return head;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>We are basically looking one node ahead of our pre node because we need to know whether to route the previous node in the sequence say n to n+2 (the node containing the value being n+1 for example) thus skipping the value node. This was a problem covered in my undergrad lower divsion data structures class and I have also seen this in an interview. I think just getting familiarity with how to manipulate linked lists will help with this problem…personally I think this problem would be difficult if not prepared for in an interview since I would be willing to wager the vast majority of software devs probably do not deal with LinkedLists regularly. Here is the full code below.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span> &amp;&amp; head.val == val) &#123;</span><br><span class="line">            head=head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (head==<span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        ListNode preNode = head;</span><br><span class="line">        ListNode currNode = head.next;</span><br><span class="line">        <span class="keyword">while</span>(currNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(currNode.val==val) &#123;</span><br><span class="line">                preNode.next = currNode.next;</span><br><span class="line">                currNode = currNode.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                currNode = currNode.next;</span><br><span class="line">                preNode = preNode.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/12/Coding-Problem-6-Removed-Linked-List-Elements/" data-id="cin0k1jjc0008pjtcvuv4bfhd" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/12/Coding-Problem-6-Removed-Linked-List-Elements/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problem-5-Insert-into-binary-tree" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/11/Coding-Problem-5-Insert-into-binary-tree/">Coding Problem 5 | Insert into binary tree</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/11/Coding-Problem-5-Insert-into-binary-tree/" class="article-date"><time datetime="2016-04-11T20:10:38.000Z" itemprop="datePublished">2016-04-11</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/11/Coding-Problem-5-Insert-into-binary-tree/" data-id="cin0k1jiz0004pjtcemt0zubq" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/11/Coding-Problem-5-Insert-into-binary-tree/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problem-4-Shuffle-Int-Array" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/11/Coding-Problem-4-Shuffle-Int-Array/">Coding Problem 4 | Shuffle Int Array</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/11/Coding-Problem-4-Shuffle-Int-Array/" class="article-date"><time datetime="2016-04-11T17:59:34.000Z" itemprop="datePublished">2016-04-11</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Another fairly common problem. Main challenge that I see would be generating the random integer. I chose to do this in place, its possible to do it out of place too but in my opinion the in place solution is more natural to this sort of problem not to mention it has O(1) space complexity. My algorithm was:</p>
-<p>for each element in array:<br>    1) Generate the random index for the element that you will swap with the current element.<br>    2) Save the current element index in a temp variable because we are going to ovewrite it with the element from the random index.<br>    3) Copy the random element into the current element thus overwriting the value of the current element, however the value is saved in step 2.<br>    4) Copy saved value of current element into the random element thus completing the swap of the current element and the random element.</p>
-<p>return original array which was swapped in place.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayShuffleCalc</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span>[] shuffleArray(<span class="keyword">int</span>[] testArray) &#123;</span><br><span class="line">		Random randomInt = <span class="keyword">new</span> Random();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; testArray.length; i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> tempIndex = randomInt.nextInt(testArray.length-<span class="number">1</span>);</span><br><span class="line">		    <span class="keyword">int</span> tempInt = testArray[i];</span><br><span class="line">		    testArray[i] = testArray[tempIndex];</span><br><span class="line">		    testArray[tempIndex] = tempInt;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> testArray;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayShuffleDriver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] testIntArray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>&#125;;</span><br><span class="line">		</span><br><span class="line">		ArrayShuffleCalc basicShuffle = <span class="keyword">new</span> ArrayShuffleCalc();</span><br><span class="line">		</span><br><span class="line">		System.out.println(Arrays.toString(basicShuffle.shuffleArray((testIntArray))));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/11/Coding-Problem-4-Shuffle-Int-Array/" data-id="cin0k1jix0003pjtcpmc1nqgq" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/11/Coding-Problem-4-Shuffle-Int-Array/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Coding-Problem-3-Reverse-String" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/11/Coding-Problem-3-Reverse-String/">Coding Problem 3 | Reverse String</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/11/Coding-Problem-3-Reverse-String/" class="article-date"><time datetime="2016-04-11T17:24:03.000Z" itemprop="datePublished">2016-04-11</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This problem was originally supposed to be reverse the string in-place. However since I am using Java and Java strings are immutable this was not possible. If you were given a character array instead of a string in java you could reverse that character array in place. The approach I took below was to copy the String into the character array and then reverse it by using the standard reverse string algorithm of swapping array elements 0 and max, 1 and max-1…until floor(max/2). Not a hard problem but a common one asked in many interviews.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseStringCalc</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String testString)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">char</span>[] s = testString.toCharArray();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Math.floor(s.length/<span class="number">2</span>);i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(((s.length-<span class="number">1</span>)-i)==i)&#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">char</span> tempChar = s[i];</span><br><span class="line">			s[i]=s[(s.length-<span class="number">1</span>)-i];</span><br><span class="line">			s[(s.length-<span class="number">1</span>)-i] = tempChar;		</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> String(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/11/Coding-Problem-3-Reverse-String/" data-id="cin0k1jiq0001pjtchet25iqz" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/11/Coding-Problem-3-Reverse-String/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-CodeFight-Problem-2-incorrectPasscode-Attempts" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/08/CodeFight-Problem-2-incorrectPasscode-Attempts/">Coding Problem 2 | CodeFights - incorrectPasscode Attempts</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2016/04/08/CodeFight-Problem-2-incorrectPasscode-Attempts/" class="article-date"><time datetime="2016-04-08T22:42:08.000Z" itemprop="datePublished">2016-04-08</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This problem basically asks you to check if a user has failed 10 times in a row to log into a system. If he has failed 10 times return true, if not return false. I thought this was a good problem because you had to read carefully to understand the edge cases. I kept getting the final 2 tests wrong before actually tracing the code and realizing that I was off by 1 when checking how many times a user has logged it. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">incorrectPasscodeAttempts</span><span class="params">(String passcode, String[] attempts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(attempts.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">int</span> numAttempts = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">boolean</span> overTenFailures=<span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (String entry : attempts) &#123;</span><br><span class="line">        <span class="keyword">if</span> (passcode.equals(entry)) &#123;</span><br><span class="line">           numAttempts = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (numAttempts &gt;= <span class="number">9</span>)&#123;</span><br><span class="line">            overTenFailures=<span class="keyword">true</span>;</span><br><span class="line">            numAttempts++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            numAttempts++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> overTenFailures;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="http://emchamp.github.io/2016/04/08/CodeFight-Problem-2-incorrectPasscode-Attempts/" data-id="cin0k1jid0000pjtc1ou0a5wv" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="http://emchamp.github.io/2016/04/08/CodeFight-Problem-2-incorrectPasscode-Attempts/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coding-problems/">coding-problems</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <div id="page-nav">
-    <nav><ul class="pagination"><li class="disabled"><span class="page-prev"><i class="fa fa-chevron-left"></i> Prev</a></li><li class="active"><span class="page-number">1</span></li><li><a class="page-number" href="/page/2/">2</a></li><li><a class="page-next" rel="next" href="/page/2/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
-  </div>
-
-
-
-        </div>
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          
-  <div class="sidebar-module sidebar-module-inset">
-  <h4>About</h4>
-  <p>Posting random topics about programming/tech/life.</p>
-
-</div>
-
-
-  
-
-
-  
-  <div class="sidebar-module">
-    <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/coding-problems/">coding-problems</a><span class="sidebar-module-list-count">9</span></li></ul>
-  </div>
-
-
-
-  
-  <div class="sidebar-module">
-    <h4>Tag Cloud</h4>
-    <p class="tagcloud">
-      <a href="/tags/coding-problems/" style="font-size: 10px;">coding-problems</a>
+<header id="top">
+  <div class="wrap">
+    <div class="eyebrow">Singapore · APAC</div>
+    <h1>Rommel Sunga</h1>
+    <p class="tagline">
+      <strong>Solutions Architect at AWS</strong>, twelve years across software engineering and enterprise
+      pre-sales. I write the reference architectures, build the demos, and sit in the room when the
+      engineering team and the executive sponsor need to hear the same answer.
     </p>
+    <div class="meta">
+      <a class="chip primary" href="mailto:rommelsunga@gmail.com">rommelsunga@gmail.com</a>
+      <a class="chip" href="https://www.linkedin.com/in/rommelsunga/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="chip" href="https://github.com/EMChamp" target="_blank" rel="noopener">GitHub</a>
+      <a class="chip" href="https://dev.to/rommel_sunga" target="_blank" rel="noopener">DEV.to</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>8</b><span>AWS blog posts since 2025</span></div>
+      <div class="stat"><b>12</b><span>Years customer-facing technical</span></div>
+      <div class="stat"><b>400%</b><span>Peak quota attainment, Twilio</span></div>
+      <div class="stat"><b>$4M</b><span>ARR award-winning engagement</span></div>
+    </div>
   </div>
+</header>
 
+<!-- ============ AWS WRITING ============ -->
+<section id="writing">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="secnum">01</div>
+      <h2>Published on the AWS Messaging Blog</h2>
+      <p class="secsub">
+        Eight posts since October 2025 on the official AWS Messaging and Targeting blog, five of them as
+        lead author. These are the reference architectures customers actually deploy, covering SES tenant
+        isolation, RCS, WhatsApp Business, and agentic messaging on Amazon Bedrock.
+      </p>
+    </div>
 
-  
-  <div class="sidebar-module">
-    <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">April 2016</a><span class="sidebar-module-list-count">11</span></li></ul>
+    <div class="posts">
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/send-rich-rcs-messages-with-aws-end-user-messaging-rcs/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>18 AUG 2026</span><span class="badge lead">Lead author</span><span class="badge">Level 300</span><span class="badge">RCS</span></div>
+        <div class="ptitle">Send rich RCS messages with AWS End User Messaging RCS</div>
+        <div class="pdesc">Every RCS content type through the SendRcsMessage API in Python: text, files, rich cards, carousels, suggestions. Each example ships a validated payload plus delivery controls for message expiration and per-message SMS fallback.</div>
+        <div class="pauth">Rommel Sunga, Bruno Giorgini</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/build-an-autonomous-ecommerce-assistant-with-aws-end-user-messaging-amazon-bedrock-agentcore-and-openclaw/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>13 JUL 2026</span><span class="badge lead">Lead author</span><span class="badge">Bedrock AgentCore</span><span class="badge">Agentic AI</span></div>
+        <div class="ptitle">Build an autonomous ecommerce assistant with AWS End User Messaging, Amazon Bedrock AgentCore, and OpenClaw</div>
+        <div class="pdesc">An open-source reference architecture that folds a web storefront, WhatsApp, email, and Telegram into one agent-driven commerce experience. Buyers shop through WhatsApp and the web. The owner runs restocks, refunds, and orders as natural-language commands from Telegram.</div>
+        <div class="pauth">Rommel Sunga, Bruno Giorgini, Zip Zieper</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/adding-line-messenger-to-your-aws-omnichannel-fallback-solution/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>05 JUN 2026</span><span class="badge lead">Lead author</span><span class="badge">Omnichannel</span></div>
+        <div class="ptitle">Adding LINE Messenger to your AWS omnichannel fallback solution</div>
+        <div class="pdesc">Extends an API Gateway, Lambda, SES, and End User Messaging fallback chain to carry LINE, the dominant messenger across Japan, Thailand, and Taiwan. Covers the architecture change, deployment, and the tests that prove failover actually falls over.</div>
+        <div class="pauth">Rommel Sunga, Katsuya Matsuoka, Pavlos Ioannou Katidis</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/send-whatsapp-business-messages-with-aws-end-user-messaging-social/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>05 JUN 2026</span><span class="badge lead">Lead author</span><span class="badge">WhatsApp</span></div>
+        <div class="ptitle">Send WhatsApp Business messages with AWS End User Messaging Social</div>
+        <div class="pdesc">A complete developer path through every supported WhatsApp message type in Python, from plain text and media up through templates, interactive menus, and WhatsApp Flows.</div>
+        <div class="pauth">Rommel Sunga, Bruno Giorgini</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/establishing-finops-management-integrating-aws-budgets-with-whatsapp-using-aws-end-user-messaging/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>15 JAN 2026</span><span class="badge">FinOps</span><span class="badge">WhatsApp</span></div>
+        <div class="ptitle">Establishing FinOps management: integrating AWS Budgets with WhatsApp using AWS End User Messaging</div>
+        <div class="pdesc">Routes AWS Budgets alerts straight into WhatsApp so cost thresholds reach the person who can act on them, wherever that person happens to be.</div>
+        <div class="pauth">Ruchikka Chaudhary, Preenesh Nayanasudhan, Rommel Sunga</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/implement-tenants-in-your-amazon-ses-environment-part-3-implementation-guide/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>26 NOV 2025</span><span class="badge lead">Lead author</span><span class="badge">Amazon SES</span><span class="badge">Part 3 of 3</span></div>
+        <div class="ptitle">Implement Tenants in your Amazon SES environment, Part 3: Implementation guide</div>
+        <div class="pdesc">The step-by-step migration to SES Tenants across IAM permissions, CloudWatch logging, and EventBridge monitoring. Written for teams moving a live sending estate without torching their reputation.</div>
+        <div class="pauth">Rommel Sunga, Tom Gilbert</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/implement-tenants-in-your-amazon-ses-environment-part-2-assessment-and-planning/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>26 NOV 2025</span><span class="badge lead">Lead author</span><span class="badge">Amazon SES</span><span class="badge">Part 2 of 3</span></div>
+        <div class="ptitle">Implement Tenants in your Amazon SES environment, Part 2: Assessment and planning</div>
+        <div class="pdesc">How to assess an existing SES footprint and plan a move to tenant-based reputation isolation, so one noisy sender stops dragging down everyone else on the account.</div>
+        <div class="pauth">Rommel Sunga, Tom Gilbert</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/track-otp-success-with-aws-end-user-messaging-sms-feedback/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>21 OCT 2025</span><span class="badge lead">Sole author</span><span class="badge">SMS</span><span class="badge">Observability</span></div>
+        <div class="ptitle">Track OTP success with AWS End User Messaging SMS feedback</div>
+        <div class="pdesc">Instruments SMS one-time passwords with message feedback to measure real delivery and conversion. The argument underneath it: carrier delivery receipts are third-party and lie by omission, and first-party signal is the only thing worth trusting.</div>
+        <div class="pauth">Rommel Sunga</div>
+      </a>
+
+    </div>
   </div>
+</section>
 
+<!-- ============ VIDEO ============ -->
+<section id="video">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="secnum">02</div>
+      <h2>The 8x8 CPaaS demo platform</h2>
+      <p class="secsub">
+        I built the technical demo platform the regional sales team used in live customer meetings, then
+        presented it on the 8x8 developer channel.
+      </p>
+    </div>
 
-
-  
-  <div class="sidebar-module">
-    <h4>Recents</h4>
-    <ul class="sidebar-module-list">
-      
-        <li>
-          <a href="/2016/04/14/Coding-Problem-Perfectly-nested-String/">Coding Problem | Perfectly nested String</a>
-        </li>
-      
-        <li>
-          <a href="/2016/04/14/Coding-Problems-Calculate-if-array-holds-a-permutation/">Coding Problems | Calculate if array holds a permutation</a>
-        </li>
-      
-        <li>
-          <a href="/2016/04/13/Coding-Problem-9-Codility-calculate-binary-gap/">Coding Problem 9 | Codility calculate binary gap</a>
-        </li>
-      
-        <li>
-          <a href="/2016/04/13/Coding-Problem-8-Check-if-binary-tree-is-balanced/">Coding Problem 8 | Check if binary tree is balanced</a>
-        </li>
-      
-        <li>
-          <a href="/2016/04/13/Coding-Problem-7-Maximum-Depth-of-Binary-Tree/">Coding Problem 7 | Maximum Depth of Binary Tree</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-
+    <div class="video-grid">
+      <div>
+        <div class="player" id="player" role="button" tabindex="0" aria-label="Play the 8x8 CPaaS demo platform video">
+          <img src="https://i.ytimg.com/vi/BHvTuYzNYY4/sddefault.jpg"
+               onerror="this.src='https://i.ytimg.com/vi/BHvTuYzNYY4/hqdefault.jpg'"
+               alt="Use Cases with 8x8 CPaaS with our Demo Platform">
+          <div class="playbtn"><i></i></div>
         </div>
+      </div>
+      <div>
+        <div class="vtitle">Use Cases with 8x8 CPaaS with our Demo Platform</div>
+        <div class="vchan">8x8 Embedded Communications and APIs · Aug 2024</div>
+        <div class="vbody">
+          <p>
+            A single walkthrough covering the SMS, Messaging Apps, Voice Callflows, and Verification APIs,
+            with Jitsi as a Service embedded for in-browser video conferencing.
+          </p>
+          <p>
+            I designed and wrote the platform end to end in React, Next.js, Node.js, and Python,
+            containerized it with Docker, and ran it on AWS EC2. It gave sellers a live, working surface
+            to demo against instead of a slide deck, and it gave prospects something they could poke at
+            in the meeting.
+          </p>
+        </div>
+        <div class="stack">
+          <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Node.js</span>
+          <span class="tag">Python</span><span class="tag">Docker</span><span class="tag">AWS EC2</span>
+          <span class="tag">Jitsi (JaaS)</span>
+        </div>
+        <div class="meta" style="margin-top:20px">
+          <a class="chip" href="https://www.youtube.com/watch?v=BHvTuYzNYY4" target="_blank" rel="noopener">Watch on YouTube</a>
+          <a class="chip" href="https://www.youtube.com/@8x8embeddedcommunications" target="_blank" rel="noopener">The channel</a>
+          <a class="chip" href="https://developer.8x8.com/connect/docs/tutorial-building-a-whatsapp-google-calendar-chat-bot" target="_blank" rel="noopener">My 8x8 developer tutorial</a>
+        </div>
+      </div>
     </div>
   </div>
-  <footer class="blog-footer">
-  <div class="container">
-    <div id="footer-info" class="inner">
-      &copy; 2016 EMChamp<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+</section>
+
+<!-- ============ DEV.TO ============ -->
+<section id="tutorials">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="secnum">03</div>
+      <h2>Tutorials on DEV</h2>
+      <p class="secsub">
+        Writing I do because I like explaining things, not because a content calendar asked for it.
+        <a href="https://dev.to/rommel_sunga" target="_blank" rel="noopener" style="color:var(--accent)">Full profile on DEV.to</a>.
+      </p>
+    </div>
+
+    <div class="posts">
+      <a class="post" href="https://dev.to/rommel_sunga/how-claude-code-saved-my-weekends-editing-family-videos-2j66" target="_blank" rel="noopener">
+        <div class="pmeta"><span>10 AUG 2026</span><span class="badge">3 min read</span><span class="badge">#ai</span><span class="badge">#python</span><span class="badge">#opensource</span></div>
+        <div class="ptitle">How Claude Code saved my weekends editing family videos</div>
+        <div class="pdesc">Turning a 700-clip DJI Pocket 3 archive into a watchable timeline with a four-stage Python pipeline. The interesting part is what the naive heuristic gets wrong, and why detection cannot substitute for taste.</div>
+      </a>
+      <a class="post" href="https://dev.to/rommel_sunga/simple-tutorial-a-dockerized-nodejs-react-and-nextjs-application-gik" target="_blank" rel="noopener">
+        <div class="pmeta"><span>09 AUG 2024</span><span class="badge">6 min read</span><span class="badge">#docker</span><span class="badge">#react</span><span class="badge">#node</span></div>
+        <div class="ptitle">Simple Tutorial: A Dockerized Node.js, React and Next.js Application</div>
+        <div class="pdesc">A ground-up guide to containerizing a modern JavaScript stack, written for the developer who has read the Docker docs and still has a broken build.</div>
+      </a>
+      <a class="post" href="https://dev.to/rommel_sunga/real-time-crypto-tracker-using-webhooks-with-react-nextjs-and-nodejs-4cec" target="_blank" rel="noopener">
+        <div class="pmeta"><span>09 AUG 2024</span><span class="badge">5 min read</span><span class="badge">#webdev</span><span class="badge">#nextjs</span></div>
+        <div class="ptitle">Real-Time Crypto Tracker using Webhooks with React, Next.js and Node.js</div>
+        <div class="pdesc">Building live price monitoring on webhooks rather than polling, with the event plumbing spelled out.</div>
+      </a>
     </div>
   </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="secnum">04</div>
+      <h2>Experience</h2>
+      <p class="secsub">Software engineering first, then twelve years of carrying the technical side of enterprise deals.</p>
+    </div>
+
+    <div class="exp">
+      <div class="job now">
+        <div class="jrole">Solutions Architect · <span class="jco">Amazon Web Services</span></div>
+        <div class="jdate">SINGAPORE · PRESENT</div>
+        <div class="jdesc">Technical advisor to APAC enterprise customers on messaging and communications architecture across SES and AWS End User Messaging. Publishing reference architectures on the official AWS Messaging Blog.</div>
+      </div>
+      <div class="job">
+        <div class="jrole">Senior Sales Engineer · <span class="jco">8x8</span></div>
+        <div class="jdate">SINGAPORE · 2023 – 2025</div>
+        <div class="jdesc">Hit 100% of regional quota in Q4 2024. Built the CPaaS demo platform above, authored developer documentation, and received the 8x8 Employee Appreciation Award.</div>
+      </div>
+      <div class="job">
+        <div class="jrole">Senior Sales Engineer · <span class="jco">GuardRails</span></div>
+        <div class="jdate">SINGAPORE · 2022 – 2023</div>
+        <div class="jdesc">Founded the sales engineering practice at an early-stage application security company, reporting to the CEO and CTO. Ran technical evaluations with CISOs and led on-premise Kubernetes deployments across AWS, GCP, and Azure.</div>
+      </div>
+      <div class="job">
+        <div class="jrole">Principal Solutions Engineer · <span class="jco">Twilio</span></div>
+        <div class="jdate">SINGAPORE · 2020 – 2022</div>
+        <div class="jdesc">Top APAC Solutions Engineer for Q2 2021 at over 400% of quota, promoted out of cycle. Won the H1 2020 Transformative Deal Award on a roughly $4M ARR Video engagement. Second place in the 2021 SE hackathon for real-time transcription and translation over live video.</div>
+      </div>
+      <div class="job">
+        <div class="jrole">Software Engineer, then Solutions Engineer · <span class="jco">Sendbird</span></div>
+        <div class="jdate">SINGAPORE · 2018 – 2020</div>
+        <div class="jdesc">Owned enterprise technical engagements while contributing to the core backend. Built a zero-downtime live-migration service on Lambda, Aurora, and S3.</div>
+      </div>
+      <div class="job">
+        <div class="jrole">Senior Software Engineer, Data and Infrastructure · <span class="jco">Big Fish Games</span></div>
+        <div class="jdate">SEATTLE · 2017 – 2018</div>
+        <div class="jdesc">Stood up a Hive and Spark cluster on AWS EMR for game telemetry, with Python transformation jobs feeding the analytics pipeline.</div>
+      </div>
+      <div class="job">
+        <div class="jrole">Software Engineer, Platform · <span class="jco">Rakuten</span></div>
+        <div class="jdate">TOKYO · 2016 – 2017</div>
+        <div class="jdesc">Built an internal distributed computing platform on Docker, Marathon, and Apache Mesos, with the microservices API layer on Nginx and Consul.</div>
+      </div>
+      <div class="job">
+        <div class="jrole">Software Engineer · <span class="jco">Avery Products, then Panasonic Avionics</span></div>
+        <div class="jdate">CALIFORNIA · 2014 – 2016</div>
+        <div class="jdesc">Java applications for online label design, and Linux test tooling for in-flight entertainment hardware.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:34px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-dim); font-size:14.5px">
+      <b style="color:var(--text)">University of California, Irvine</b> · B.S. Computer Science, Dean's List
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="secnum">05</div>
+      <h2>Applied AI, built on my own time</h2>
+      <p class="secsub">
+        One live product and four systems built at nights and weekends. I am listing the experiments for
+        what they taught me about failure modes, because the useful lesson from each was never the
+        feature. It was the moment the obvious approach turned out to be wrong.
+      </p>
+    </div>
+
+    <div class="featured">
+      <div class="featured-body">
+        <div class="flabel">Live · Shipped</div>
+        <div class="fname"><a href="https://thevibecodingreport.com/index.html" target="_blank" rel="noopener">The Vibe Coding Report ↗</a></div>
+        <div class="ftag">
+          A serverless news aggregator and intelligence platform for the AI developer tools ecosystem,
+          running unattended and publishing daily. It scans the agent, model, IDE, cloud, and builder
+          landscape, then reduces each development to a single line worth reading.
+        </div>
+        <div class="ftag">
+          The whole thing is vibe coded, which is the point. It is a working argument that an agent-built
+          system can hold up in production and keep publishing without a person in the loop every morning.
+        </div>
+        <div class="stack">
+          <span class="tag">Serverless</span><span class="tag">AWS</span><span class="tag">Python</span>
+          <span class="tag">LLM summarization</span><span class="tag">RSS ingestion</span><span class="tag">Scheduled pipelines</span>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <div class="frow"><b>Publishes</b><span>A daily digest of coding agents, model launches, IDEs, cloud platforms, and app builders.</span></div>
+        <div class="frow"><b>Sections</b><span>Daily, Articles, Themes, Trends, Integrations, and a newsletter.</span></div>
+        <div class="frow"><b>Covers</b><span>Releases from Anthropic, OpenAI, Google, and Meta, plus funding, acquisitions, and AI security incidents.</span></div>
+        <div class="frow"><b>Operates</b><span>Unattended. Scheduled ingestion, categorization, and publication with no manual step.</span></div>
+        <div style="margin-top:6px">
+          <a class="chip primary" href="https://thevibecodingreport.com/index.html" target="_blank" rel="noopener">Visit thevibecodingreport.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects">
+      <div class="proj">
+        <div class="prname"><a href="https://github.com/EMChamp/winnow" target="_blank" rel="noopener" style="text-decoration:none">winnow ↗</a></div>
+        <div class="prlede">A four-stage Python pipeline that scores 700+ 4K clips on per-frame motion and sharpness, then cuts the dead footage. NVDEC hardware decode took the render from 1.03x to 3.90x realtime.</div>
+        <div class="prlearn"><b>What broke</b>A "cut anything still for twelve seconds" rule would have carved 22 seconds out of a beautifully composed held wide shot. A parked camera and a deliberate one are identical to the metric. Intent is not measurable, so the heuristic had to go.</div>
+      </div>
+      <div class="proj">
+        <div class="prname">Agentic content pipeline</div>
+        <div class="prlede">Local Ollama models driven by an open-source agent framework, generating JSON-constrained game content that Python validates before import into the engine.</div>
+        <div class="prlearn"><b>What broke</b>Unconstrained generation does not survive contact with a schema. The real design work was drawing the line between what the model produces and what deterministic code enforces afterward.</div>
+      </div>
+      <div class="proj">
+        <div class="prname">Face-expression classifier</div>
+        <div class="prlede">DeepFace and MediaPipe over 905 photos, identifying one specific child among family group shots and bucketing by expression.</div>
+        <div class="prlearn"><b>What broke</b>The off-the-shelf emotion model confidently read a serious closed-mouth face as distress. A mouth-aspect-ratio feature the model had no access to was what actually separated the classes. Model cards are not eval sets.</div>
+      </div>
+      <div class="proj">
+        <div class="prname">Household finance dashboard</div>
+        <div class="prlede">Python PDF extraction across 1,434 bank and card transactions, reconciled against printed statement totals, feeding a dependency-free offline dashboard.</div>
+        <div class="prlearn"><b>What broke</b>Charge-and-refund pairs quietly inflated spend by $8.6K until they were detected and netted out. Reconciling against the printed total is what surfaced it. Always check the extraction against a number the source already committed to.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="secnum">06</div>
+      <h2>Get in touch</h2>
+      <p class="secsub">Based in Singapore, covering APAC. Open to conversations about applied AI, enterprise architecture, and pre-sales work.</p>
+    </div>
+    <div class="ctas">
+      <a class="btn solid" href="mailto:rommelsunga@gmail.com">rommelsunga@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/rommelsunga/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/EMChamp" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://dev.to/rommel_sunga" target="_blank" rel="noopener">DEV.to</a>
+    </div>
+    <footer>
+      <span>© <span id="yr"></span> Rommel Sunga</span>
+      <span>Singapore</span>
+    </footer>
+  </div>
+</section>
 
 <script>
-  var disqus_shortname = 'username';
-  
-  var disqus_url = 'http://emchamp.github.io/2016/04/14/Coding-Problem-Perfectly-nested-String/';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
+document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){
+  var p = document.getElementById('player');
+  function load(){
+    p.innerHTML = '<iframe src="https://www.youtube.com/embed/BHvTuYzNYY4?autoplay=1" title="Use Cases with 8x8 CPaaS with our Demo Platform" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    p.style.cursor = 'default';
+  }
+  p.addEventListener('click', load);
+  p.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); }});
+})();
 </script>
-
-</footer>
-
-  
-<script>
-  var disqus_shortname = 'username';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-
-
-<script src="/js/script.js"></script>
 
 </body>
 </html>
