@@ -83,6 +83,17 @@ h1{font-size:clamp(2.4rem,6vw,3.6rem); line-height:1.06; letter-spacing:-0.035em
 .stat span{font-size:12.5px; color:var(--text-faint)}
 @media(max-width:640px){.stat{border-right:none; border-bottom:1px solid var(--border)} .stat:last-child{border-bottom:none}}
 
+.career{
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:26px;
+  font-size:14px; color:var(--text-dim);
+}
+.career span{
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--text-faint); margin-right:4px;
+}
+.career b{color:var(--text); font-weight:600}
+.career i{color:var(--border-strong); font-style:normal}
+
 /* ---------- sections ---------- */
 section{padding:72px 0; border-bottom:1px solid var(--border)}
 .sechead{margin-bottom:36px}
@@ -189,6 +200,20 @@ h2{font-size:clamp(1.5rem,3.4vw,2rem); letter-spacing:-0.025em; margin-top:6px; 
 .frow{display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--text-dim)}
 .frow b{color:var(--text); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; min-width:78px; padding-top:3px; color:var(--text-faint)}
 
+.jlist{margin:14px 0 0 0; padding:0; list-style:none; max-width:74ch}
+.jlist li{
+  color:var(--text-dim); font-size:14.5px; line-height:1.6;
+  padding:7px 0 7px 18px; position:relative;
+}
+.jlist li::before{content:""; position:absolute; left:0; top:15px; width:6px; height:1px; background:var(--accent)}
+.jlist b{color:var(--text); font-weight:600}
+.jlist a{color:var(--accent); text-decoration:none}
+.jlist a:hover{text-decoration:underline}
+.jcerts{
+  margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:.04em; color:var(--text-faint); line-height:1.7;
+}
+
 /* ---------- projects ---------- */
 .projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px}
 .proj{background:var(--bg-raised); border:1px solid var(--border); border-radius:10px; padding:24px; transition:border-color .15s}
@@ -222,10 +247,10 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
     <a class="brand" href="#top">Rommel Sunga <span>/ Solutions Architect</span></a>
     <div class="navlinks">
       <a href="#writing">AWS Blog</a>
+      <a href="#projects">Applied AI</a>
       <a href="#video">8x8 Demos</a>
       <a href="#tutorials">Tutorials</a>
       <a href="#experience">Experience</a>
-      <a href="#projects">Applied AI</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -233,26 +258,32 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
 
 <header id="top">
   <div class="wrap">
-    <div class="eyebrow">Singapore · APAC</div>
+    <div class="eyebrow">Singapore · Asia Pacific · Open to conversations</div>
     <h1>Rommel Sunga</h1>
     <p class="tagline">
-      <strong>Solutions Architect at AWS</strong>, twelve years across software engineering and enterprise
-      pre-sales. I write the reference architectures, build the demos, and sit in the room when the
-      engineering team and the executive sponsor need to hear the same answer.
+      <strong>Senior Specialist Solutions Architect at AWS</strong>, covering End User Messaging and SES
+      across Asia Pacific. Twelve years in communications and SaaS, seven of them customer-facing, built on
+      a foundation of backend and infrastructure engineering. I write the reference architectures, build the
+      demos, and sit in the room when the engineering team and the executive sponsor need to hear the same answer.
     </p>
     <div class="meta">
-      <a class="chip primary" href="mailto:rommelsunga@gmail.com">rommelsunga@gmail.com</a>
+      <a class="chip primary" href="Rommel_Sunga_Resume.pdf" target="_blank" rel="noopener">Download resume (PDF)</a>
+      <a class="chip" href="mailto:rommelsunga@gmail.com">rommelsunga@gmail.com</a>
       <a class="chip" href="https://www.linkedin.com/in/rommelsunga/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="chip" href="https://github.com/EMChamp" target="_blank" rel="noopener">GitHub</a>
       <a class="chip" href="https://dev.to/rommel_sunga" target="_blank" rel="noopener">DEV.to</a>
     </div>
 
     <div class="stats">
-      <div class="stat"><b>8</b><span>AWS blog posts since 2025</span></div>
-      <div class="stat"><b>12</b><span>Years customer-facing technical</span></div>
-      <div class="stat"><b>400%</b><span>Peak quota attainment, Twilio</span></div>
+      <div class="stat"><b>8</b><span>Posts on the AWS Messaging Blog</span></div>
       <div class="stat"><b>31</b><span>Product demos on the 8x8 dev channel</span></div>
-      <div class="stat"><b>~30</b><span>Employee number at Sendbird (YC W16)</span></div>
+      <div class="stat"><b>12</b><span>Years in communications and SaaS</span></div>
+      <div class="stat"><b>400%</b><span>Peak quota attainment, Twilio</span></div>
+    </div>
+
+    <div class="career">
+      <span>Previously</span>
+      <b>AWS</b><i>·</i><b>8x8</b><i>·</i><b>GuardRails</b><i>·</i><b>Twilio</b><i>·</i><b>Sendbird</b><i>·</i><b>Rakuten</b><i>·</i><b>Big Fish Games</b>
     </div>
   </div>
 </header>
@@ -331,12 +362,99 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
     </div>
   </div>
 </section>
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="secnum">02</div>
+      <h2>Applied AI, built on my own time</h2>
+      <p class="secsub">
+        Two live products and three systems built at nights and weekends. I am listing the experiments for
+        what they taught me about failure modes, because the useful lesson from each was never the
+        feature. It was the moment the obvious approach turned out to be wrong.
+      </p>
+    </div>
 
+    <div class="featured">
+      <div class="featured-body">
+        <div class="flabel">Live · Shipped</div>
+        <div class="fname"><a href="https://thevibecodingreport.com/index.html" target="_blank" rel="noopener">The Vibe Coding Report ↗</a></div>
+        <div class="ftag">
+          A serverless news aggregator and intelligence platform for the AI developer tools ecosystem,
+          running unattended and publishing daily. It scans the agent, model, IDE, cloud, and builder
+          landscape, then reduces each development to a single line worth reading.
+        </div>
+        <div class="ftag">
+          The whole thing is vibe coded, which is the point. It is a working argument that an agent-built
+          system can hold up in production and keep publishing without a person in the loop every morning.
+        </div>
+        <div class="stack">
+          <span class="tag">Serverless</span><span class="tag">AWS</span><span class="tag">Python</span>
+          <span class="tag">LLM summarization</span><span class="tag">RSS ingestion</span><span class="tag">Scheduled pipelines</span>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <div class="frow"><b>Publishes</b><span>A daily digest of coding agents, model launches, IDEs, cloud platforms, and app builders.</span></div>
+        <div class="frow"><b>Sections</b><span>Daily, Articles, Themes, Trends, Integrations, and a newsletter.</span></div>
+        <div class="frow"><b>Covers</b><span>Releases from Anthropic, OpenAI, Google, and Meta, plus funding, acquisitions, and AI security incidents.</span></div>
+        <div class="frow"><b>Operates</b><span>Unattended. Scheduled ingestion, categorization, and publication with no manual step.</span></div>
+        <div style="margin-top:6px">
+          <a class="chip primary" href="https://thevibecodingreport.com/index.html" target="_blank" rel="noopener">Visit thevibecodingreport.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="featured">
+      <div class="featured-body">
+        <div class="flabel">Live · Playable in the browser</div>
+        <div class="fname"><a href="https://projects.westdotlogic.com/games" target="_blank" rel="noopener">West Dot Logic Games ↗</a></div>
+        <div class="ftag">
+          A small playable library of browser-first prototypes. Two are live and playable right now, no
+          install and no sign-up. The point of the collection is to build systems-heavy toy worlds and see
+          which mechanics survive contact with a real player.
+        </div>
+        <div class="stack">
+          <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Phaser</span>
+          <span class="tag">AWS Bedrock</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span>
+          <span class="tag">CloudFront</span><span class="tag">CDK</span>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <div class="frow"><b>Deep Below</b><span>A dark fantasy async dungeon crawl with an LLM game master. It narrates each scene, resolves every player's action into one cinematic turn, and drives the AI companions that fill empty party slots. Amazon Bedrock Nova Pro runs the GM, Nova Lite runs the companions.</span></div>
+        <div class="frow"><b>Corsairs</b><span>A maritime roguelite of ship navigation, crew management, and combat, built on Phaser and TypeScript.</span></div>
+        <div class="frow"><b>Why it matters</b><span>Deep Below is a working answer to the hardest question in agentic design: how do you let a model drive the experience while keeping the rules deterministic enough to be fair?</span></div>
+        <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:10px">
+          <a class="chip primary" href="https://projects.westdotlogic.com/games/deep-below/" target="_blank" rel="noopener">Play Deep Below</a>
+          <a class="chip" href="https://projects.westdotlogic.com/games/pirates/" target="_blank" rel="noopener">Play Corsairs</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects">
+      <div class="proj">
+        <div class="prname"><a href="https://github.com/EMChamp/winnow" target="_blank" rel="noopener" style="text-decoration:none">winnow ↗</a></div>
+        <div class="prlede">A four-stage Python pipeline that scores 700+ 4K clips on per-frame motion and sharpness, then cuts the dead footage. NVDEC hardware decode took the render from 1.03x to 3.90x realtime.</div>
+        <div class="prlearn"><b>What broke</b>A "cut anything still for twelve seconds" rule would have carved 22 seconds out of a beautifully composed held wide shot. A parked camera and a deliberate one are identical to the metric. Intent is not measurable, so the heuristic had to go.</div>
+      </div>
+      <div class="proj">
+        <div class="prname">Agentic content pipeline</div>
+        <div class="prlede">Local Ollama models driven by an open-source agent framework, generating JSON-constrained game content that Python validates before import into the engine.</div>
+        <div class="prlearn"><b>What broke</b>Unconstrained generation does not survive contact with a schema. The real design work was drawing the line between what the model produces and what deterministic code enforces afterward.</div>
+      </div>
+      <div class="proj">
+        <div class="prname">Face-expression classifier</div>
+        <div class="prlede">DeepFace and MediaPipe over a 905-image archive, recognizing one target face among crowded group shots and bucketing every match by expression.</div>
+        <div class="prlearn"><b>What broke</b>The off-the-shelf emotion model confidently read a serious closed-mouth face as distress. A mouth-aspect-ratio feature the model had no access to was what actually separated the classes. Model cards are not eval sets.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
 <!-- ============ VIDEO ============ -->
 <section id="video">
   <div class="wrap">
     <div class="sechead">
-      <div class="secnum">02</div>
+      <div class="secnum">03</div>
       <h2>31 demos on the 8x8 developer channel</h2>
       <p class="secsub">
         I built the technical demo platform the regional sales team used in live customer meetings, then
@@ -442,12 +560,11 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
     </div>
   </div>
 </section>
-
 <!-- ============ DEV.TO ============ -->
 <section id="tutorials">
   <div class="wrap">
     <div class="sechead">
-      <div class="secnum">03</div>
+      <div class="secnum">04</div>
       <h2>Tutorials on DEV</h2>
       <p class="secsub">
         Writing I do because I like explaining things, not because a content calendar asked for it.
@@ -474,21 +591,52 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
     </div>
   </div>
 </section>
-
 <!-- ============ EXPERIENCE ============ -->
 <section id="experience">
   <div class="wrap">
     <div class="sechead">
-      <div class="secnum">04</div>
+      <div class="secnum">05</div>
       <h2>Experience</h2>
       <p class="secsub">Software engineering first, then twelve years of carrying the technical side of enterprise deals.</p>
     </div>
 
     <div class="exp">
       <div class="job now">
-        <div class="jrole">Solutions Architect · <span class="jco">Amazon Web Services</span></div>
-        <div class="jdate">SINGAPORE · PRESENT</div>
-        <div class="jdesc">Technical advisor to APAC enterprise customers on messaging and communications architecture across SES and AWS End User Messaging. Publishing reference architectures on the official AWS Messaging Blog.</div>
+        <div class="jrole">Senior Specialist Solutions Architect, End User Messaging &amp; SES · <span class="jco">Amazon Web Services</span></div>
+        <div class="jdate">SINGAPORE · JAN 2025 – PRESENT</div>
+        <div class="jdesc">
+          Specialist SA for AWS End User Messaging and Amazon SES across Asia Pacific, aligned to the
+          Communication Developer Services go-to-market team and covering opportunities in Australia and
+          New Zealand, ASEAN, and Japan.
+        </div>
+        <ul class="jlist">
+          <li><b>Published eight posts on the AWS Messaging Blog</b>, lead author on five, each shipping with an
+            open-source reference repository. Field teams across Asia Pacific and Greater China reuse them as
+            documented patterns. Three landed in the first half of 2026 alone:
+            <a href="https://aws.amazon.com/blogs/messaging-and-targeting/send-whatsapp-business-messages-with-aws-end-user-messaging-social/" target="_blank" rel="noopener">WhatsApp Business messaging</a>,
+            <a href="https://aws.amazon.com/blogs/messaging-and-targeting/adding-line-messenger-to-your-aws-omnichannel-fallback-solution/" target="_blank" rel="noopener">LINE omnichannel fallback</a>, and
+            <a href="https://aws.amazon.com/blogs/messaging-and-targeting/build-an-autonomous-ecommerce-assistant-with-aws-end-user-messaging-amazon-bedrock-agentcore-and-openclaw/" target="_blank" rel="noopener">an autonomous ecommerce agent on Bedrock AgentCore</a>.</li>
+          <li><b>Lead specialist on enterprise migrations</b> onto SES and End User Messaging from competing
+            providers. Architecture review through production cutover: international number registration and
+            portability, dedicated IP warm-up, per-tenant reputation isolation, suppression and deliverability
+            strategy, and block-list management at hundreds of millions of messages a month.</li>
+          <li><b>Built demos that became sales assets.</b> Reference implementations pairing End User Messaging
+            with Amazon Bedrock agents and knowledge bases for ecommerce and financial services use cases,
+            adopted by teams outside my own region and folded into the regional sales play.</li>
+          <li><b>Resolved 85+ technical specification requests</b> and L200 to L400 technical inquiries as the
+            regional escalation point for the two services.</li>
+          <li><b>Claude Code on Bedrock, daily.</b> I run it as a working tool rather than a novelty, and I have
+            built a library of skills and repeatable workflows for my team so the same automation is available
+            to everyone rather than living in one person's terminal.</li>
+          <li><b>Built the CPaaS news digest my GTM and SA team runs on.</b> An automated intelligence feed that
+            tracks the competitive communications landscape and delivers it to the field, alongside a
+            competitive positioning portal and an RFP knowledge base. Sellers get one current reference instead
+            of a dozen stale decks.</li>
+          <li><b>Technical reviewer and mentor.</b> I review colleagues' blog posts before publication, run
+            enablement sessions and lightning talks for the regional SA community, and mentor SAs in
+            Greater China.</li>
+        </ul>
+        <div class="jcerts">AWS Certified Solutions Architect Associate · AI Practitioner · Cloud Practitioner · multiple internal AWSome Awards</div>
       </div>
       <div class="job">
         <div class="jrole">Senior Sales Engineer · <span class="jco">8x8</span></div>
@@ -533,72 +681,13 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
   </div>
 </section>
 
-<!-- ============ PROJECTS ============ -->
-<section id="projects">
-  <div class="wrap">
-    <div class="sechead">
-      <div class="secnum">05</div>
-      <h2>Applied AI, built on my own time</h2>
-      <p class="secsub">
-        One live product and four systems built at nights and weekends. I am listing the experiments for
-        what they taught me about failure modes, because the useful lesson from each was never the
-        feature. It was the moment the obvious approach turned out to be wrong.
-      </p>
-    </div>
 
-    <div class="featured">
-      <div class="featured-body">
-        <div class="flabel">Live · Shipped</div>
-        <div class="fname"><a href="https://thevibecodingreport.com/index.html" target="_blank" rel="noopener">The Vibe Coding Report ↗</a></div>
-        <div class="ftag">
-          A serverless news aggregator and intelligence platform for the AI developer tools ecosystem,
-          running unattended and publishing daily. It scans the agent, model, IDE, cloud, and builder
-          landscape, then reduces each development to a single line worth reading.
-        </div>
-        <div class="ftag">
-          The whole thing is vibe coded, which is the point. It is a working argument that an agent-built
-          system can hold up in production and keep publishing without a person in the loop every morning.
-        </div>
-        <div class="stack">
-          <span class="tag">Serverless</span><span class="tag">AWS</span><span class="tag">Python</span>
-          <span class="tag">LLM summarization</span><span class="tag">RSS ingestion</span><span class="tag">Scheduled pipelines</span>
-        </div>
-      </div>
-      <div class="featured-visual">
-        <div class="frow"><b>Publishes</b><span>A daily digest of coding agents, model launches, IDEs, cloud platforms, and app builders.</span></div>
-        <div class="frow"><b>Sections</b><span>Daily, Articles, Themes, Trends, Integrations, and a newsletter.</span></div>
-        <div class="frow"><b>Covers</b><span>Releases from Anthropic, OpenAI, Google, and Meta, plus funding, acquisitions, and AI security incidents.</span></div>
-        <div class="frow"><b>Operates</b><span>Unattended. Scheduled ingestion, categorization, and publication with no manual step.</span></div>
-        <div style="margin-top:6px">
-          <a class="chip primary" href="https://thevibecodingreport.com/index.html" target="_blank" rel="noopener">Visit thevibecodingreport.com</a>
-        </div>
-      </div>
-    </div>
 
-    <div class="projects">
-      <div class="proj">
-        <div class="prname"><a href="https://github.com/EMChamp/winnow" target="_blank" rel="noopener" style="text-decoration:none">winnow ↗</a></div>
-        <div class="prlede">A four-stage Python pipeline that scores 700+ 4K clips on per-frame motion and sharpness, then cuts the dead footage. NVDEC hardware decode took the render from 1.03x to 3.90x realtime.</div>
-        <div class="prlearn"><b>What broke</b>A "cut anything still for twelve seconds" rule would have carved 22 seconds out of a beautifully composed held wide shot. A parked camera and a deliberate one are identical to the metric. Intent is not measurable, so the heuristic had to go.</div>
-      </div>
-      <div class="proj">
-        <div class="prname">Agentic content pipeline</div>
-        <div class="prlede">Local Ollama models driven by an open-source agent framework, generating JSON-constrained game content that Python validates before import into the engine.</div>
-        <div class="prlearn"><b>What broke</b>Unconstrained generation does not survive contact with a schema. The real design work was drawing the line between what the model produces and what deterministic code enforces afterward.</div>
-      </div>
-      <div class="proj">
-        <div class="prname">Face-expression classifier</div>
-        <div class="prlede">DeepFace and MediaPipe over a 905-image archive, recognizing one target face among crowded group shots and bucketing every match by expression.</div>
-        <div class="prlearn"><b>What broke</b>The off-the-shelf emotion model confidently read a serious closed-mouth face as distress. A mouth-aspect-ratio feature the model had no access to was what actually separated the classes. Model cards are not eval sets.</div>
-      </div>
-      <div class="proj">
-        <div class="prname">Household finance dashboard</div>
-        <div class="prlede">Python PDF extraction across 1,434 bank and card transactions, reconciled against printed statement totals, feeding a dependency-free offline dashboard.</div>
-        <div class="prlearn"><b>What broke</b>Charge-and-refund pairs quietly inflated spend by $8.6K until they were detected and netted out. Reconciling against the printed total is what surfaced it. Always check the extraction against a number the source already committed to.</div>
-      </div>
-    </div>
-  </div>
-</section>
+
+
+
+
+
 
 <!-- ============ CONTACT ============ -->
 <section id="contact">
@@ -606,10 +695,15 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
     <div class="sechead">
       <div class="secnum">06</div>
       <h2>Get in touch</h2>
-      <p class="secsub">Based in Singapore, covering APAC. Open to conversations about applied AI, enterprise architecture, and pre-sales work.</p>
+      <p class="secsub">
+        Based in Singapore, covering Asia Pacific. I am interested in applied AI and forward-deployed
+        architecture roles, the kind where the job is to sit between a customer's engineering team and a
+        model and make the two work together. Happy to talk even if the timing is wrong.
+      </p>
     </div>
     <div class="ctas">
       <a class="btn solid" href="mailto:rommelsunga@gmail.com">rommelsunga@gmail.com</a>
+      <a class="btn" href="Rommel_Sunga_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
       <a class="btn" href="https://www.linkedin.com/in/rommelsunga/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn" href="https://github.com/EMChamp" target="_blank" rel="noopener">GitHub</a>
       <a class="btn" href="https://dev.to/rommel_sunga" target="_blank" rel="noopener">DEV.to</a>
