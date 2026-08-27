@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import '../assets/js/main.js';
 import {
   VIDEO_ID,
   VIDEO_TITLE,
