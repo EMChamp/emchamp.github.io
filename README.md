@@ -2,9 +2,13 @@
 
 Personal portfolio site for Rommel Sunga, served at https://emchamp.github.io/
 
-Single static `index.html`, no build step and no dependencies. Edit it and push to `master`; GitHub Pages redeploys on its own.
+Single static `index.html`, with JavaScript modules in `assets/js/` served as-is. There is still no build step for deployment: edit the site and push to `master`; GitHub Pages redeploys on its own.
 
 Source of truth for edits lives at `C:\Users\emchamp-a14\Projects\portfolio\index.html`.
+
+## Tests
+
+Install the test dependencies with `npm install`, then run `npm test` for the unit tests or `npm run coverage` for the coverage report.
 
 ## History note
 

@@ -713,18 +713,7 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
   </div>
 </section>
 
-<script>
-document.getElementById('yr').textContent = new Date().getFullYear();
-(function(){
-  var p = document.getElementById('player');
-  function load(){
-    p.innerHTML = '<iframe src="https://www.youtube.com/embed/BHvTuYzNYY4?autoplay=1" title="Use Cases with 8x8 CPaaS with our Demo Platform" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
-    p.style.cursor = 'default';
-  }
-  p.addEventListener('click', load);
-  p.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); }});
-})();
-</script>
+<script type="module" src="assets/js/main.js"></script>
 
 </body>
 </html>
