@@ -548,7 +548,7 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
       <div>
         <div class="player" id="player" role="button" tabindex="0" aria-label="Play the 8x8 CPaaS demo platform video">
           <img src="https://i.ytimg.com/vi/BHvTuYzNYY4/sddefault.jpg"
-               onerror="this.src='https://i.ytimg.com/vi/BHvTuYzNYY4/hqdefault.jpg'"
+               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/BHvTuYzNYY4/hqdefault.jpg'"
                alt="Use Cases with 8x8 CPaaS with our Demo Platform">
           <div class="playbtn"><i></i></div>
         </div>
@@ -714,9 +714,20 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
 </section>
 
 <script>
-document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){
+  var yr = document.getElementById('yr');
+  if(!yr){
+    console.error('portfolio: #yr not found, copyright year not rendered');
+  } else {
+    yr.textContent = new Date().getFullYear();
+  }
+})();
 (function(){
   var p = document.getElementById('player');
+  if(!p){
+    console.error('portfolio: #player not found, video player not wired up');
+    return;
+  }
   function load(){
     p.innerHTML = '<iframe src="https://www.youtube.com/embed/BHvTuYzNYY4?autoplay=1" title="Use Cases with 8x8 CPaaS with our Demo Platform" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
     p.style.cursor = 'default';
