@@ -271,7 +271,7 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
     </div>
 
     <div class="stats">
-      <div class="stat"><b>8</b><span>Posts on the AWS Messaging Blog</span></div>
+      <div class="stat"><b>10</b><span>Posts on the AWS Messaging Blog</span></div>
       <div class="stat"><b>31</b><span>Product demos on the 8x8 dev channel</span></div>
       <div class="stat"><b>12</b><span>Years in communications and SaaS</span></div>
       <div class="stat"><b>400%</b><span>Peak quota attainment, Twilio</span></div>
@@ -299,9 +299,11 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
           New Zealand, ASEAN, and Japan.
         </div>
         <ul class="jlist">
-          <li><b>Published eight posts on the AWS Messaging Blog</b>, lead author on five, each shipping with an
+          <li><b>Published ten posts on the AWS Messaging Blog</b>, lead or sole author on nine, each shipping with an
             open-source reference repository. Field teams across Asia Pacific and Greater China reuse them as
-            documented patterns. Three landed in the first half of 2026 alone:
+            documented patterns. The latest two, from October and November 2026, cover
+            <a href="https://aws.amazon.com/blogs/messaging-and-targeting/automate-toll-free-number-registrations-at-scale-with-aws-end-user-messaging/" target="_blank" rel="noopener">automating toll-free number registrations</a> and
+            <a href="https://aws.amazon.com/blogs/messaging-and-targeting/track-sms-spend-by-team-and-use-case-with-aws-end-user-messaging/" target="_blank" rel="noopener">tracking SMS spend by team</a>. Earlier in 2026:
             <a href="https://aws.amazon.com/blogs/messaging-and-targeting/send-whatsapp-business-messages-with-aws-end-user-messaging-social/" target="_blank" rel="noopener">WhatsApp Business messaging</a>,
             <a href="https://aws.amazon.com/blogs/messaging-and-targeting/adding-line-messenger-to-your-aws-omnichannel-fallback-solution/" target="_blank" rel="noopener">LINE omnichannel fallback</a>, and
             <a href="https://aws.amazon.com/blogs/messaging-and-targeting/build-an-autonomous-ecommerce-assistant-with-aws-end-user-messaging-amazon-bedrock-agentcore-and-openclaw/" target="_blank" rel="noopener">an autonomous ecommerce agent on Bedrock AgentCore</a>.</li>
@@ -317,10 +319,14 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
           <li><b>Built further demos that became sales assets.</b> Reference implementations pairing End User Messaging
             with Bedrock agents and knowledge bases for ecommerce and financial services, adopted by teams
             outside my own region and folded into the regional sales play.</li>
-          <li><b>Built the CPaaS news digest my GTM and SA team runs on.</b> An automated intelligence feed that
-            tracks the competitive communications landscape and delivers it to the field, alongside a
-            competitive positioning portal and an RFP knowledge base. Sellers get one current reference instead
-            of a dozen stale decks.</li>
+          <li><b>Built an AI-powered CPaaS competitive intelligence site used across a 5,000-person organization.</b>
+            It continuously ingests competitor product releases, service incidents, and regulatory changes across
+            the communications market, then uses LLMs to classify, summarize, and flag what matters to the field.
+            It started as a digest for my own team and is now a standing reference well beyond it.</li>
+          <li><b>Built an AI-powered dashboard for the go-to-market and SA team.</b> One place for sellers and
+            architects to see pipeline context, competitive signals, and ready answers, alongside a competitive
+            positioning portal and an RFP knowledge base. Sellers get one current reference instead of a dozen
+            stale decks.</li>
           <li><b>Technical reviewer and mentor.</b> I review colleagues' blog posts before publication, and run
             enablement sessions and lightning talks for the regional SA community.</li>
         </ul>
@@ -464,13 +470,28 @@ footer{padding:30px 0 44px; color:var(--text-faint); font-size:13px; display:fle
       <div class="secnum">03</div>
       <h2>Published on the AWS Messaging Blog</h2>
       <p class="secsub">
-        Eight posts since October 2025 on the official AWS Messaging and Targeting blog, five of them as
-        lead author. These are the reference architectures customers actually deploy, covering SES tenant
-        isolation, RCS, WhatsApp Business, and agentic messaging on Amazon Bedrock.
+        Ten posts since October 2025 on the official AWS Messaging and Targeting blog, nine of them as
+        lead or sole author. These are the reference architectures customers actually deploy, covering SES tenant
+        isolation, RCS, WhatsApp Business, SMS cost attribution, toll-free registration automation, and agentic
+        messaging on Amazon Bedrock.
       </p>
     </div>
 
     <div class="posts">
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/track-sms-spend-by-team-and-use-case-with-aws-end-user-messaging/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>11 NOV 2026</span><span class="badge lead">Lead author</span><span class="badge">Level 200</span><span class="badge">FinOps</span></div>
+        <div class="ptitle">Track SMS spend by team and use case with AWS End User Messaging</div>
+        <div class="pdesc">Attributes SMS spend to the teams, cost centers, and use cases that generate it: tag sender IDs and phone numbers, activate the keys as cost allocation tags, and group spend by tag in Cost Explorer, with the matching AWS CLI commands.</div>
+        <div class="pauth">Rommel Sunga, Brett Ezell</div>
+      </a>
+
+      <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/automate-toll-free-number-registrations-at-scale-with-aws-end-user-messaging/" target="_blank" rel="noopener">
+        <div class="pmeta"><span>29 OCT 2026</span><span class="badge lead">Lead author</span><span class="badge">Level 300</span><span class="badge">Serverless</span></div>
+        <div class="ptitle">Automate toll-free number registrations at scale with AWS End User Messaging</div>
+        <div class="pdesc">Automates the full toll-free number registration lifecycle with Step Functions, EventBridge, and a human-in-the-loop rejection pattern. Each registration becomes one API call, and the multi-day carrier review is tracked at zero compute cost.</div>
+        <div class="pauth">Rommel Sunga, Brett Ezell, Tyler Holmes</div>
+      </a>
 
       <a class="post" href="https://aws.amazon.com/blogs/messaging-and-targeting/send-rich-rcs-messages-with-aws-end-user-messaging-rcs/" target="_blank" rel="noopener">
         <div class="pmeta"><span>18 AUG 2026</span><span class="badge lead">Lead author</span><span class="badge">Level 300</span><span class="badge">RCS</span></div>
